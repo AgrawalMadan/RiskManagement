@@ -35,7 +35,7 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: risk-management-db
-      - name: risk-management-xsuaa   
+      - name: risk-management-xsuaa
   # -------------------- APPROUTER -----------------------------
   - name: risk-management-approuter
     # ------------------------------------------------------------
@@ -50,11 +50,12 @@ modules:
           strictSSL: true
           name: srv-binding
           url: "~{srv-url}"
+      - name: risk-management-db
     build-parameters:
       requires:
         - name: risk-management-app
           artifacts:
-          - ./*
+            - ./*
           target-path: resources
   # -------------------- UI -----------------------------------
   - name: risk-management-app
@@ -79,14 +80,14 @@ resources:
       config:
         xsappname: 'risk-management-${space}'
         role-collections:
-        - name: 'RiskManager-${space}'
-          description: Manage Risks
-          role-template-references:
-          - $XSAPPNAME.RiskManager
-        - name: 'RiskViewer-${space}'
-          description: View Risks
-          role-template-references:
-          - $XSAPPNAME.RiskViewer
+          - name: 'RiskManager-${space}'
+            description: Manage Risks
+            role-template-references:
+              - $XSAPPNAME.RiskManager
+          - name: 'RiskViewer-${space}'
+            description: View Risks
+            role-template-references:
+              - $XSAPPNAME.RiskViewer
   - name: risk-management-destination-service
     type: org.cloudfoundry.managed-service
     parameters:
